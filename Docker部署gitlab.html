@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="docker,gitlab">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Natural's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="下载指定版本的gitlab镜像1$ docker pull gitlab/gitlab-ce:9.3.4-ce.0 使用docker启动gitlab添加 gitlab 启动脚本 gitlab.sh 。12345678910#!/bin/bashdocker run -d --restart=always \   -p 8443:443 \   -p 8080:80 \   -p 22:22 \">
+<meta name="keywords" content="docker,gitlab">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker部署gitlab">
+<meta property="og:url" content="https://blog.zqifei.com/Docker部署gitlab.html">
+<meta property="og:site_name" content="Natural&#39;s blog">
+<meta property="og:description" content="下载指定版本的gitlab镜像1$ docker pull gitlab/gitlab-ce:9.3.4-ce.0 使用docker启动gitlab添加 gitlab 启动脚本 gitlab.sh 。12345678910#!/bin/bashdocker run -d --restart=always \   -p 8443:443 \   -p 8080:80 \   -p 22:22 \">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-17T03:36:54.802Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker部署gitlab">
+<meta name="twitter:description" content="下载指定版本的gitlab镜像1$ docker pull gitlab/gitlab-ce:9.3.4-ce.0 使用docker启动gitlab添加 gitlab 启动脚本 gitlab.sh 。12345678910#!/bin/bashdocker run -d --restart=always \   -p 8443:443 \   -p 8080:80 \   -p 22:22 \">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.zqifei.com/Docker部署gitlab.html">
+
+
+
+
+
+  <title>Docker部署gitlab | Natural's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Natural's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.zqifei.com/Docker部署gitlab.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Natural">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Natural's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker部署gitlab</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-15T14:20:25+08:00">
+                2017-09-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="下载指定版本的gitlab镜像"><a href="#下载指定版本的gitlab镜像" class="headerlink" title="下载指定版本的gitlab镜像"></a>下载指定版本的gitlab镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull gitlab/gitlab-ce:9.3.4-ce.0</span><br></pre></td></tr></table></figure>
+<h2 id="使用docker启动gitlab"><a href="#使用docker启动gitlab" class="headerlink" title="使用docker启动gitlab"></a>使用docker启动gitlab</h2><p>添加 gitlab 启动脚本 gitlab.sh 。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">docker run -d --restart=always \</span><br><span class="line">   -p 8443:443 \</span><br><span class="line">   -p 8080:80 \</span><br><span class="line">   -p 22:22 \</span><br><span class="line">   --name gitlab \</span><br><span class="line">   -v /data/volumes/gitlab/config:/etc/gitlab \</span><br><span class="line">   -v /data/volumes/gitlab/logs:/var/<span class="built_in">log</span>/gitlab \</span><br><span class="line">   -v /data/volumes/gitlab/data:/var/opt/gitlab \</span><br><span class="line">   gitlab/gitlab-ce:9.3.4-ce.0</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改-gitlab-配置文件"><a href="#修改-gitlab-配置文件" class="headerlink" title="修改 gitlab 配置文件"></a>修改 gitlab 配置文件</h2><p>配置文件位置为: /data/volumes/gitlab/config/gitlab.rb 。<br>该配置文件添加了邮箱、数据备份、ldap、外部nginx 和 gitlab pages 的配置。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gitlab 外部URL</span></span><br><span class="line">external_url <span class="string">'https://git.zqifei.com'</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 开启ldap服务</span></span><br><span class="line">gitlab_rails[<span class="string">'ldap_enabled'</span>] = <span class="literal">true</span></span><br><span class="line">gitlab_rails[<span class="string">'ldap_servers'</span>] = YAML.load &lt;&lt;-<span class="string">'EOS'</span></span><br><span class="line">  <span class="symbol">main:</span> <span class="comment"># 'main' is the GitLab 'provider ID' of this LDAP server</span></span><br><span class="line">    <span class="symbol">label:</span> <span class="string">'LDAP'</span></span><br><span class="line">    <span class="symbol">host:</span> <span class="string">'ldap-server'</span></span><br><span class="line">    <span class="symbol">port:</span> <span class="number">389</span></span><br><span class="line">    <span class="symbol">uid:</span> <span class="string">'uid'</span></span><br><span class="line">    <span class="symbol">method:</span> <span class="string">'plain'</span> <span class="comment"># "tls" or "ssl" or "plain"</span></span><br><span class="line">    <span class="symbol">bind_dn:</span> <span class="string">'cn=admin,dc=zqifei,dc=com'</span></span><br><span class="line">    <span class="symbol">base:</span> <span class="string">'cn=user,dc=zqifei,dc=com'</span></span><br><span class="line">    <span class="symbol">password:</span> <span class="string">'ldap-password'</span></span><br><span class="line">    <span class="symbol">active_directory:</span> <span class="literal">true</span></span><br><span class="line">    <span class="symbol">allow_username_or_email_login:</span> <span class="literal">true</span></span><br><span class="line">    <span class="symbol">block_auto_created_users:</span> <span class="literal">false</span></span><br><span class="line">    <span class="symbol">user_filter:</span> <span class="string">''</span></span><br><span class="line">    <span class="symbol">attributes:</span></span><br><span class="line">      <span class="symbol">username:</span> <span class="string">'uid'</span></span><br><span class="line">      <span class="symbol">email:</span>    <span class="string">'email'</span></span><br><span class="line">      <span class="symbol">name:</span>     <span class="string">'cn'</span></span><br><span class="line">      <span class="symbol">last_name:</span> <span class="string">'sn'</span></span><br><span class="line">EOS</span><br><span class="line">  </span><br><span class="line"><span class="comment"># gitlab 备份数据到AWS S3上</span></span><br><span class="line">gitlab_rails[<span class="string">'backup_keep_time'</span>] = <span class="number">604800</span></span><br><span class="line">gitlab_rails[<span class="string">'backup_upload_connection'</span>] = &#123;</span><br><span class="line"> <span class="string">'provider'</span> =&gt; <span class="string">'AWS'</span>,</span><br><span class="line"> <span class="string">'region'</span> =&gt; <span class="string">'you_aws_region'</span>,</span><br><span class="line"> <span class="string">'aws_access_key_id'</span> =&gt; <span class="string">'you_aws_key_id'</span>,</span><br><span class="line"> <span class="string">'aws_secret_access_key'</span> =&gt; <span class="string">'you_aws_access_key'</span></span><br><span class="line">&#125;</span><br><span class="line">gitlab_rails[<span class="string">'backup_upload_remote_directory'</span>] = <span class="string">'you_awk_bucket'</span></span><br><span class="line">gitlab_rails[<span class="string">'backup_multipart_chunk_size'</span>] = <span class="number">104857600</span></span><br><span class="line">gitlab_rails[<span class="string">'gitlab_shell_ssh_port'</span>] = <span class="number">22</span>   <span class="comment">#需要跟启动脚本的ssh端口对应</span></span><br><span class="line">  </span><br><span class="line">gitlab_rails[<span class="string">'rack_attack_git_basic_auth'</span>] = &#123;</span><br><span class="line"> <span class="string">'enabled'</span> =&gt; <span class="literal">false</span>,</span><br><span class="line"> <span class="string">'ip_whitelist'</span> =&gt; [<span class="string">"127.0.0.1"</span>],</span><br><span class="line"> <span class="string">'maxretry'</span> =&gt; <span class="number">10</span>,</span><br><span class="line"> <span class="string">'findtime'</span> =&gt; <span class="number">60</span>,</span><br><span class="line"> <span class="string">'bantime'</span> =&gt; <span class="number">3600</span></span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="comment"># gitlab 邮箱配置</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_enable'</span>] = <span class="literal">true</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_address'</span>] = <span class="string">"you_smtp_address"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_port'</span>] = <span class="number">25</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_user_name'</span>] = <span class="string">"you_smtp_user_name"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_password'</span>] = <span class="string">"you_smtp_password"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_domain'</span>] = <span class="string">"you_smtp_domain"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_authentication'</span>] = <span class="string">"login"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_enable_starttls_auto'</span>] = <span class="literal">true</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_tls'</span>] = <span class="literal">false</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_openssl_verify_mode'</span>] = <span class="string">'none'</span></span><br><span class="line">gitlab_rails[<span class="string">'gitlab_email_from'</span>] = <span class="string">"send_from_email_address"</span></span><br><span class="line">user[<span class="string">'git_user_email'</span>] = <span class="string">"use_email"</span></span><br><span class="line">unicorn[<span class="string">'worker_timeout'</span>] = <span class="number">60</span></span><br><span class="line">unicorn[<span class="string">'worker_processes'</span>] = <span class="number">2</span></span><br><span class="line">sidekiq[<span class="string">'concurrency'</span>] = <span class="number">2</span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 关闭gitlab内部nginx</span></span><br><span class="line">nginx[<span class="string">'enable'</span>] = <span class="literal">false</span></span><br><span class="line">web_server[<span class="string">'external_users'</span>] = [<span class="string">'www-data'</span>]</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 开启gitlab pages服务</span></span><br><span class="line">pages_external_url <span class="string">"http://pages.zqifei.com/"</span></span><br><span class="line">gitlab_pages[<span class="string">'enable'</span>] = <span class="literal">true</span></span><br><span class="line">gitlab_pages[<span class="string">'external_http'</span>] = <span class="string">"pages.zqifei.com"</span></span><br><span class="line">gitlab_pages[<span class="string">'redirect_http'</span>] = <span class="literal">true</span></span><br><span class="line">gitlab_pages[<span class="string">'dir'</span>] = <span class="string">"/var/opt/gitlab/gitlab-pages"</span></span><br><span class="line">gitlab_pages[<span class="string">'log_directory'</span>] = <span class="string">"/var/log/gitlab/gitlab-pages"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="使用外部nginx代理gitlab服务"><a href="#使用外部nginx代理gitlab服务" class="headerlink" title="使用外部nginx代理gitlab服务"></a>使用外部nginx代理gitlab服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/nginx/conf.d/gitlab.conf</span><br><span class="line"></span><br><span class="line">upstream gitlab-workhorse &#123;</span><br><span class="line">  server unix:/data/volumes/gitlab/data/gitlab-workhorse/socket fail_timeout=0;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">## Redirects all HTTP traffic to the HTTPS host</span><br><span class="line">server &#123;</span><br><span class="line">  ## Either remove &quot;default_server&quot; from the listen line below,</span><br><span class="line">  ## or delete the /etc/nginx/sites-enabled/default file. This will cause gitlab</span><br><span class="line">  ## to be served if you visit any address that your server responds to, eg.</span><br><span class="line">  ## the ip address of the server (http://x.x.x.x/)</span><br><span class="line">  listen 80;</span><br><span class="line">  listen [::]:80;</span><br><span class="line">  server_name git.zqifei.com; ## Replace this with something like gitlab.example.com</span><br><span class="line">  server_tokens off; ## Don&apos;t show the nginx version number, a security best practice</span><br><span class="line">  return 301 https://$http_host$request_uri;</span><br><span class="line">  access_log  /var/log/nginx/gitlab_access.log;</span><br><span class="line">  error_log   /var/log/nginx/gitlab_error.log;</span><br><span class="line">&#125;</span><br><span class="line">## HTTPS host</span><br><span class="line">server &#123;</span><br><span class="line">  listen 0.0.0.0:443 ssl;</span><br><span class="line">  listen [::]:443 ipv6only=on ssl default_server;</span><br><span class="line">  server_name git.zqifei.com; ## Replace this with something like gitlab.example.com</span><br><span class="line">  server_tokens off; ## Don&apos;t show the nginx version number, a security best practice</span><br><span class="line">  root /data/volumes/gitlab/public;</span><br><span class="line">    </span><br><span class="line">  ## Strong SSL Security</span><br><span class="line">  ## https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html &amp; https://cipherli.st/</span><br><span class="line">  ssl on;</span><br><span class="line">  ssl_certificate /etc/nginx/ssl/git.zqifei.com.crt;</span><br><span class="line">  ssl_certificate_key /etc/nginx/ssl/git.zqifei.com.key;</span><br><span class="line"> </span><br><span class="line">   </span><br><span class="line">  # GitLab needs backwards compatible ciphers to retain compatibility with Java IDEs</span><br><span class="line">  ssl_ciphers &quot;ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:ECDHE-RSA-DES-CBC3-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4&quot;;</span><br><span class="line">  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">  ssl_prefer_server_ciphers on;</span><br><span class="line">  ssl_session_cache shared:SSL:10m;</span><br><span class="line">  ssl_session_timeout 5m;</span><br><span class="line">  </span><br><span class="line">  ## See app/controllers/application_controller.rb for headers set</span><br><span class="line">  ## [Optional] Enable HTTP Strict Transport Security</span><br><span class="line">  ## HSTS is a feature improving protection against MITM attacks</span><br><span class="line">  ## For more information see: https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/</span><br><span class="line">  # add_header Strict-Transport-Security &quot;max-age=31536000; includeSubDomains&quot;;</span><br><span class="line"> </span><br><span class="line">  ## [Optional] If your certficate has OCSP, enable OCSP stapling to reduce the overhead and latency of running SSL.</span><br><span class="line">  ## Replace with your ssl_trusted_certificate. For more info see:</span><br><span class="line">  ## - https://medium.com/devops-programming/4445f4862461</span><br><span class="line">  ## - https://www.ruby-forum.com/topic/4419319</span><br><span class="line">  ## - https://www.digitalocean.com/community/tutorials/how-to-configure-ocsp-stapling-on-apache-and-nginx</span><br><span class="line">  # ssl_stapling on;</span><br><span class="line">  # ssl_stapling_verify on;</span><br><span class="line">  # ssl_trusted_certificate /etc/nginx/ssl/stapling.trusted.crt;</span><br><span class="line">  # resolver 208.67.222.222 208.67.222.220 valid=300s; # Can change to your DNS resolver if desired</span><br><span class="line">  # resolver_timeout 5s;</span><br><span class="line"> </span><br><span class="line">  ## [Optional] Generate a stronger DHE parameter:</span><br><span class="line">  ##   sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 4096</span><br><span class="line">  ##</span><br><span class="line">  # ssl_dhparam /etc/ssl/certs/dhparam.pem;</span><br><span class="line"> </span><br><span class="line">  ## Individual nginx logs for this GitLab vhost</span><br><span class="line">  access_log  /var/log/nginx/gitlab_access.log;</span><br><span class="line">  error_log   /var/log/nginx/gitlab_error.log;</span><br><span class="line">   </span><br><span class="line">  location / &#123;</span><br><span class="line">    client_max_body_size 0;</span><br><span class="line">    gzip off;</span><br><span class="line"> </span><br><span class="line">    ## https://github.com/gitlabhq/gitlabhq/issues/694</span><br><span class="line">    ## Some requests take more than 30 seconds.</span><br><span class="line">    proxy_read_timeout      300;</span><br><span class="line">    proxy_connect_timeout   300;</span><br><span class="line">    proxy_redirect          off;</span><br><span class="line"> </span><br><span class="line">    proxy_http_version 1.1;</span><br><span class="line"> </span><br><span class="line">    proxy_set_header    Host                $http_host;</span><br><span class="line">    proxy_set_header    X-Real-IP           $remote_addr;</span><br><span class="line">    proxy_set_header    X-Forwarded-Ssl     on;</span><br><span class="line">    proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_set_header    X-Forwarded-Proto   $scheme;</span><br><span class="line">    proxy_pass http://gitlab-workhorse;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="gitlab目录权限配置"><a href="#gitlab目录权限配置" class="headerlink" title="gitlab目录权限配置"></a>gitlab目录权限配置</h3><p>在使用外部 nginx 时，gitlab 外挂到主机的目录权限需要进行修改，否则启动 gitlab 以后访问会报 404 。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ usermod -aG docker www-data</span><br><span class="line">$ setfacl -R -m user::rex /data/volumes/gitlab</span><br><span class="line">$ setfacl -R -m group::rwx /data/volumes/gitlab</span><br><span class="line">$ setfacl -R -m group::rwx /data/volumes/gitlab</span><br></pre></td></tr></table></figure></p>
+<h2 id="恢复gitlab备份数据"><a href="#恢复gitlab备份数据" class="headerlink" title="恢复gitlab备份数据"></a>恢复gitlab备份数据</h2><p>将备份的数据传到容器内。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker cp 1393513186_gitlab_backup.tar gitlab:/var/opt/gitlab/backups/</span><br></pre></td></tr></table></figure></p>
+<p>停止相关数据连接服务。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ gitlab-ctl stop unicorn</span><br><span class="line">$ gitlab-ctl stop sidekiq</span><br></pre></td></tr></table></figure></p>
+<p>从 1393513186 编号中备份恢复。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gitlab-rake gitlab:backup:restore BACKUP=1393513186</span><br></pre></td></tr></table></figure></p>
+<p>启动 gitlab 服务。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gitlab-ctl start</span><br></pre></td></tr></table></figure></p>
+<h2 id="添加定时任务"><a href="#添加定时任务" class="headerlink" title="添加定时任务"></a>添加定时任务</h2><p>在服务器上添加 crontab 任务，定时备份数据传到 AWS S3 上。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 2 * * * docker <span class="built_in">exec</span> gitlab gitlab-rake gitlab:backup:create</span><br></pre></td></tr></table></figure></p>
+<h2 id="部署gitlab-runner"><a href="#部署gitlab-runner" class="headerlink" title="部署gitlab runner"></a>部署gitlab runner</h2><p>下载 gitlab-runner 镜像。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull gitlab/gitlab-runner:v9.3.0</span><br></pre></td></tr></table></figure></p>
+<p>启动脚本。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">docker run -d --name gitlab-runner --restart always \</span><br><span class="line"> -v /data/volumes/gitlab-runner/config:/etc/gitlab-runner \</span><br><span class="line"> -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line"> gitlab/gitlab-runner:v9.3.0</span><br></pre></td></tr></table></figure></p>
+<h3 id="注册gitlab-runner"><a href="#注册gitlab-runner" class="headerlink" title="注册gitlab runner"></a>注册gitlab runner</h3><p>进入 gitlab runner 容器内执行注册命令。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">exec</span> -it gitlab-runner bash</span><br><span class="line">$ gitlab-runner register</span><br><span class="line">1. 输入gitlab地址</span><br><span class="line">Please enter the gitlab-ci coordinator URL (e.g. https://gitlab.com )</span><br><span class="line">https://git.zqifei.com</span><br><span class="line">  </span><br><span class="line">2. gitlab的token(在gitlab的Admin Area中)或者仓库的token(仓库-&gt;设置-&gt;Runner)</span><br><span class="line">Please enter the gitlab-ci token <span class="keyword">for</span> this runner</span><br><span class="line">***</span><br><span class="line">  </span><br><span class="line">3. gitlab Runner描述信息</span><br><span class="line">Please enter the gitlab-ci description <span class="keyword">for</span> this runner</span><br><span class="line">[hostame] my-runner</span><br><span class="line">  </span><br><span class="line">4. gitlab Runner的标签 可以指定仓库 只使用固定标签的Runner构建</span><br><span class="line">Please enter the gitlab-ci tags <span class="keyword">for</span> this runner (comma separated):</span><br><span class="line">docker</span><br><span class="line">  </span><br><span class="line">5. 选择 runner 是否运行未标记的工作</span><br><span class="line">Whether to run untagged <span class="built_in">jobs</span> [<span class="literal">true</span>/<span class="literal">false</span>]:</span><br><span class="line">[<span class="literal">false</span>]: <span class="literal">true</span></span><br><span class="line">  </span><br><span class="line">6. 选择是否锁定当前项目的运行程序</span><br><span class="line">Whether to lock Runner to current project [<span class="literal">true</span>/<span class="literal">false</span>]:</span><br><span class="line">[<span class="literal">false</span>]: <span class="literal">false</span></span><br><span class="line">  </span><br><span class="line">7. 输入执行程序</span><br><span class="line">Please enter the executor: ssh, docker+machine, docker-ssh+machine, kubernetes, docker, parallels, virtualbox, docker-ssh, shell:</span><br><span class="line">docker</span><br><span class="line">  </span><br><span class="line">8. 选择编译的环境</span><br><span class="line">Please enter the Docker image (eg. ruby:2.1):</span><br><span class="line">alpine:latest</span><br></pre></td></tr></table></figure></p>
+<p>查看已经注册的 runner。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gitlab-runner list</span><br></pre></td></tr></table></figure></p>
+<p>注册成功后就可以在 gitlab 的页面查看到 ranner 了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/LDAP安装配置.html" rel="next" title="LDAP安装配置">
+                <i class="fa fa-chevron-left"></i> LDAP安装配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Docker、Consul、Registrator和Traefik实现高可扩展Web框架.html" rel="prev" title="Docker、Consul、Registrator和Traefik实现高可扩展Web框架">
+                Docker、Consul、Registrator和Traefik实现高可扩展Web框架 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Natural</p>
+              <p class="site-description motion-element" itemprop="description">Nothing is impossible to a willing heart</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhuqifei1994" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhuqifei1994@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载指定版本的gitlab镜像"><span class="nav-number">1.</span> <span class="nav-text">下载指定版本的gitlab镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用docker启动gitlab"><span class="nav-number">2.</span> <span class="nav-text">使用docker启动gitlab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改-gitlab-配置文件"><span class="nav-number">3.</span> <span class="nav-text">修改 gitlab 配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用外部nginx代理gitlab服务"><span class="nav-number">4.</span> <span class="nav-text">使用外部nginx代理gitlab服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gitlab目录权限配置"><span class="nav-number">4.1.</span> <span class="nav-text">gitlab目录权限配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#恢复gitlab备份数据"><span class="nav-number">5.</span> <span class="nav-text">恢复gitlab备份数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加定时任务"><span class="nav-number">6.</span> <span class="nav-text">添加定时任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署gitlab-runner"><span class="nav-number">7.</span> <span class="nav-text">部署gitlab runner</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注册gitlab-runner"><span class="nav-number">7.1.</span> <span class="nav-text">注册gitlab runner</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Natural</span>
+
+  
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
