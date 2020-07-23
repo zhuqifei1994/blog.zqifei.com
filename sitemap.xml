@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.zqifei.com/about/index.html</loc>
+    
+    <lastmod>2020-07-22T09:09:51.046Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.zqifei.com/Docker%E9%83%A8%E7%BD%B2gitlab.html</loc>
     
     <lastmod>2020-06-17T03:36:54.802Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>https://blog.zqifei.com/MegaCli%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html</loc>
     
     <lastmod>2020-06-17T03:14:48.008Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.zqifei.com/about/index.html</loc>
-    
-    <lastmod>2020-06-17T02:43:50.242Z</lastmod>
     
   </url>
   

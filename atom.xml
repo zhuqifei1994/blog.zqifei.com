@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>一匹乌黑白马</title>
+  <title>一头乌黑白发</title>
   
   
   <link href="/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>https://blog.zqifei.com/</id>
   
   <author>
-    <name>一匹乌黑白马</name>
+    <name>QiFei</name>
     
   </author>
   
