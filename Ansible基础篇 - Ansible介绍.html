@@ -91,7 +91,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://cdn.zqifei.com/20200803159642318939626.png">
 <meta property="og:image" content="http://cdn.zqifei.com/20200803159642314541891.png">
-<meta property="og:updated_time" content="2020-08-03T03:38:03.929Z">
+<meta property="og:updated_time" content="2020-08-04T03:30:53.327Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ansible基础篇(1) - Ansible介绍">
 <meta name="twitter:description" content="在讲解 Ansible 使用之前，首先介绍一下 Ansible 是什么。。。 一、Ansible 名字的由来？Ansible 取名自知名小说《安德的游戏》（Ender’s Game），而这部小说在2013年被改编成电影，2014年1月7号在中国上映。在电影中安塞波（Ansible）是虚构的一种以超光速传递信息的通讯装置，片中主角安德（Ender）和他的伙伴们通过安塞波（Ansible）跨越时空指挥">
@@ -381,7 +381,12 @@
 <li>红帽解决方案：Openshift、Ceph、GlusterFS 等，支持几乎所有红帽解决方案的一键部署和配置。</li>
 <li>云平台：IBM Cloud、AWS、Azure、Cloudflare、Red Hat CloudForms、Google、Linode、Digital Ocean 等。</li>
 </ul>
-<h1 id="三、Ansible-如何运作？"><a href="#三、Ansible-如何运作？" class="headerlink" title="三、Ansible 如何运作？"></a>三、Ansible 如何运作？</h1><p><div align="left"><img src="http://cdn.zqifei.com/20200803159642314541891.png" alt="20200803159642314541891.png"></div></p>
+<h1 id="三、Ansible-如何运作？"><a href="#三、Ansible-如何运作？" class="headerlink" title="三、Ansible 如何运作？"></a>三、Ansible 如何运作？</h1><h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><div align="left"><img src="http://cdn.zqifei.com/20200803159642314541891.png" alt="20200803159642314541891.png"></div></p>
+<h2 id="原理说明"><a href="#原理说明" class="headerlink" title="原理说明"></a>原理说明</h2><p>1、加载配置文件，默认是 /etc/ansible/ansible.cfg。</p>
+<p>2、加载对应模块。</p>
+<p>3、生产临时py文件，并传到目标机器 ~/.ansible/tmp 目录下。</p>
+<p>4、给 py 文件加上 +x 权限，执行并返回结果。</p>
+<p>5、删除py文件并sleep 0退出。</p>
 <h1 id="四、Ansible-的优点"><a href="#四、Ansible-的优点" class="headerlink" title="四、Ansible 的优点"></a>四、Ansible 的优点</h1><p>1、轻量级，远端主机无需安装任何依赖。</p>
 <p>2、易读性，playbook 基于 YAML 开发的，而 YAML 是一种易于人类读写的数据格式语言。</p>
 <p>3、使用 python 编写，维护更简单。</p>
@@ -573,7 +578,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、Ansible-名字的由来？"><span class="nav-number">1.</span> <span class="nav-text">一、Ansible 名字的由来？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、Ansible-能做什么？"><span class="nav-number">2.</span> <span class="nav-text">二、Ansible 能做什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、Ansible-如何运作？"><span class="nav-number">3.</span> <span class="nav-text">三、Ansible 如何运作？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、Ansible-的优点"><span class="nav-number">4.</span> <span class="nav-text">四、Ansible 的优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、Ansible-代码仓库及文档"><span class="nav-number">5.</span> <span class="nav-text">五、Ansible 代码仓库及文档</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、Ansible-名字的由来？"><span class="nav-number">1.</span> <span class="nav-text">一、Ansible 名字的由来？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、Ansible-能做什么？"><span class="nav-number">2.</span> <span class="nav-text">二、Ansible 能做什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、Ansible-如何运作？"><span class="nav-number">3.</span> <span class="nav-text">三、Ansible 如何运作？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#流程图"><span class="nav-number">3.1.</span> <span class="nav-text">流程图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理说明"><span class="nav-number">3.2.</span> <span class="nav-text">原理说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、Ansible-的优点"><span class="nav-number">4.</span> <span class="nav-text">四、Ansible 的优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、Ansible-代码仓库及文档"><span class="nav-number">5.</span> <span class="nav-text">五、Ansible 代码仓库及文档</span></a></li></ol></div>
             
 
           </div>
