@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.zqifei.com/"/>
-  <updated>2020-08-04T03:30:53.327Z</updated>
+  <updated>2020-10-13T08:59:52.985Z</updated>
   <id>https://blog.zqifei.com/</id>
   
   <author>
@@ -21,14 +21,14 @@
     <link href="https://blog.zqifei.com/Ansible%E5%9F%BA%E7%A1%80%E7%AF%87%20-%20Ansible%E4%BB%8B%E7%BB%8D.html"/>
     <id>https://blog.zqifei.com/Ansible基础篇 - Ansible介绍.html</id>
     <published>2020-08-03T02:41:11.000Z</published>
-    <updated>2020-08-04T03:30:53.327Z</updated>
+    <updated>2020-10-13T08:59:52.985Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;在讲解 Ansible 使用之前，首先介绍一下 Ansible 是什么。。。&lt;/p&gt;
-&lt;h1 id=&quot;一、Ansible-名字的由来？&quot;&gt;&lt;a href=&quot;#一、Ansible-名字的由来？&quot; class=&quot;headerlink&quot; title=&quot;一、Ansible 名字的由
+        &lt;h2 id=&quot;一、什么是Ansible&quot;&gt;&lt;a href=&quot;#一、什么是Ansible&quot; class=&quot;headerlink&quot; title=&quot;一、什么是Ansible?&quot;&gt;&lt;/a&gt;一、什么是Ansible?&lt;/h2&gt;&lt;p&gt;1、基于Python开发的一个自动化运维工具。&lt;/p&gt;
+
       
     
     </summary>
