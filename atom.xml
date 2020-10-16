@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.zqifei.com/"/>
-  <updated>2020-10-15T03:17:34.050Z</updated>
+  <updated>2020-10-16T08:29:04.391Z</updated>
   <id>https://blog.zqifei.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ansible基础篇 - Ansible Roles用法</title>
+    <link href="https://blog.zqifei.com/Ansible%E5%9F%BA%E7%A1%80%E7%AF%87%20-%20Ansible%20Roles%E7%94%A8%E6%B3%95.html"/>
+    <id>https://blog.zqifei.com/Ansible基础篇 - Ansible Roles用法.html</id>
+    <published>2020-10-16T08:23:11.000Z</published>
+    <updated>2020-10-16T08:29:04.391Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、Roles-作用&quot;&gt;&lt;a href=&quot;#一、Roles-作用&quot; class=&quot;headerlink&quot; title=&quot;一、Roles 作用&quot;&gt;&lt;/a&gt;一、Roles 作用&lt;/h2&gt;&lt;p&gt;当使用场景比较复杂时，单独使用 playbook 的话会增加编写 YAML 
+      
+    
+    </summary>
+    
+    
+      <category term="ansible" scheme="https://blog.zqifei.com/tags/ansible/"/>
+    
+  </entry>
   
   <entry>
     <title>Ansible基础篇 - Ansible Playbook用法</title>
