@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.zqifei.com/Ansible%E5%9F%BA%E7%A1%80%E7%AF%87%20-%20Ansible%E4%BB%8B%E7%BB%8D.html</loc>
+    
+    <lastmod>2020-10-19T06:10:33.042Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.zqifei.com/Ansible%E5%9F%BA%E7%A1%80%E7%AF%87%20-%20Ansible%E7%94%A8%E6%B3%95.html</loc>
+    
+    <lastmod>2020-10-19T06:07:27.242Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.zqifei.com/Ansible%E5%9F%BA%E7%A1%80%E7%AF%87%20-%20Ansible%20Roles%E7%94%A8%E6%B3%95.html</loc>
     
     <lastmod>2020-10-16T08:29:04.391Z</lastmod>
@@ -12,20 +26,6 @@
     <loc>https://blog.zqifei.com/Ansible%E5%9F%BA%E7%A1%80%E7%AF%87%20-%20Ansible%20Playbook%E7%94%A8%E6%B3%95.html</loc>
     
     <lastmod>2020-10-15T03:17:34.050Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.zqifei.com/Ansible%E5%9F%BA%E7%A1%80%E7%AF%87%20-%20Ansible%E7%94%A8%E6%B3%95.html</loc>
-    
-    <lastmod>2020-10-14T02:40:32.791Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.zqifei.com/Ansible%E5%9F%BA%E7%A1%80%E7%AF%87%20-%20Ansible%E4%BB%8B%E7%BB%8D.html</loc>
-    
-    <lastmod>2020-10-14T02:37:57.388Z</lastmod>
     
   </url>
   

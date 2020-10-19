@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://cdn.zqifei.com/20200817159765285241685.png">
 <meta property="og:image" content="http://cdn.zqifei.com/20200817159765188699497.png">
 <meta property="og:image" content="http://cdn.zqifei.com/20200817159765293893463.png">
-<meta property="og:updated_time" content="2020-10-14T02:37:57.388Z">
+<meta property="og:updated_time" content="2020-10-19T06:10:33.042Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ansible基础篇 - Ansible介绍">
 <meta name="twitter:description" content="一、什么是Ansible?1、基于Python开发的一个自动化运维工具。 2、可以批量的管理远程的主机，实现批量部署服务、执行命令等。 3、基于模块化来工作，提供了很高的扩展性。 4、基于SSH协议。 二、Ansible 名字的由来?Ansible 取名自知名小说 &amp;lt;&amp;lt;安德的游戏&amp;gt;&amp;gt;（Ender’s Game），并且这部小说在2013年被改编成电影，2014年1月7号在中国">
@@ -389,36 +389,11 @@
 <p> 4、内置上千个模块，可以满足我们工作中绝大多数的需求。</p>
 <p> 5、开源社区活跃。</p>
 <h2 id="五、Ansible-包含哪些组件？"><a href="#五、Ansible-包含哪些组件？" class="headerlink" title="五、Ansible 包含哪些组件？"></a>五、Ansible 包含哪些组件？</h2><p>Ansible 的核心组件包括：</p>
-<ul>
-<li>Modules(模块)<blockquote>
-<p>Modules 是 Ansible 的核心资产，有了 Modules , 我们才能调用这些 Modules 来完成我们想要执行的自动化任务。</p>
-</blockquote>
-</li>
-</ul>
-<ul>
-<li>Inventory（管理对象的清单）<blockquote>
-<p>Inventory 是 Ansible 要管理对象的清单。在清单中，可以配置分组、主机信息等。</p>
-</blockquote>
-</li>
-</ul>
-<ul>
-<li>Playbook（任务编排）<blockquote>
-<p>任务剧本（任务集），编排定义Ansible任务集的配置文件，由Ansible顺序依次执行，通常是JSON格式的YAML文件。</p>
-</blockquote>
-</li>
-</ul>
-<ul>
-<li>Roles(编排Playbook) <blockquote>
-<p>Roles 是将 Playbook 分成多个文件的主要机制。这简化了编写复杂的 Playbook，并使其更易于重用。通过 Roles 可以将 Playbook 分解为可重用的组件。</p>
-</blockquote>
-</li>
-</ul>
-<ul>
-<li>Plugins（插件）<blockquote>
-<p>Plugins 是增强 Ansible 核心功能的代码。Ansible 附带了许多方便的插件，如果这些插件不够，我们可以编写自己的插件。Ansible 自带的 Plugins 如下图所示：<br><img src="http://cdn.zqifei.com/20200817159765188699497.png" alt="20200817159765188699497.png"></p>
-</blockquote>
-</li>
-</ul>
+<h3 id="1、Modules-模块"><a href="#1、Modules-模块" class="headerlink" title="1、Modules(模块)"></a>1、Modules(模块)</h3><p>Modules 是 Ansible 的核心资产，有了 Modules , 我们才能调用这些 Modules 来完成我们想要执行的自动化任务。</p>
+<h3 id="2、Inventory（管理对象的清单）"><a href="#2、Inventory（管理对象的清单）" class="headerlink" title="2、Inventory（管理对象的清单）"></a>2、Inventory（管理对象的清单）</h3><p>Inventory 是 Ansible 要管理对象的清单。在清单中，可以配置分组、主机信息等。</p>
+<h3 id="3、Playbook（任务编排）"><a href="#3、Playbook（任务编排）" class="headerlink" title="3、Playbook（任务编排）"></a>3、Playbook（任务编排）</h3><p>任务剧本（任务集），编排定义Ansible任务集的配置文件，由Ansible顺序依次执行，通常是JSON格式的YAML文件。</p>
+<h3 id="4、Roles-编排Playbook"><a href="#4、Roles-编排Playbook" class="headerlink" title="4、Roles(编排Playbook)"></a>4、Roles(编排Playbook)</h3><p>Roles 是将 Playbook 分成多个文件的主要机制。这简化了编写复杂的 Playbook，并使其更易于重用。通过 Roles 可以将 Playbook 分解为可重用的组件。</p>
+<h3 id="5、Plugins（插件）"><a href="#5、Plugins（插件）" class="headerlink" title="5、Plugins（插件）"></a>5、Plugins（插件）</h3><p>Plugins 是增强 Ansible 核心功能的代码。Ansible 附带了许多方便的插件，如果这些插件不够，我们可以编写自己的插件。Ansible 自带的 Plugins 如下图所示：<br><img src="http://cdn.zqifei.com/20200817159765188699497.png" alt="20200817159765188699497.png"></p>
 <h2 id="六、Ansible-如何运作？"><a href="#六、Ansible-如何运作？" class="headerlink" title="六、Ansible 如何运作？"></a>六、Ansible 如何运作？</h2><h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><p><img src="http://cdn.zqifei.com/20200817159765293893463.png" alt="20200817159765293893463.png"></p>
 <h2 id="七、Ansible-代码仓库及文档"><a href="#七、Ansible-代码仓库及文档" class="headerlink" title="七、Ansible 代码仓库及文档"></a>七、Ansible 代码仓库及文档</h2><p>Ansible 的代码仓库存放在 Github 上，仓库地址为：<a href="https://github.com/ansible/ansible" target="_blank" rel="noopener">https://github.com/ansible/ansible</a> 。</p>
 <p>Ansible 官方文档地址为：<a href="https://docs.ansible.com/ansible/latest/index.html。" target="_blank" rel="noopener">https://docs.ansible.com/ansible/latest/index.html。</a></p>
@@ -610,7 +585,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、什么是Ansible"><span class="nav-number">1.</span> <span class="nav-text">一、什么是Ansible?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Ansible-名字的由来"><span class="nav-number">2.</span> <span class="nav-text">二、Ansible 名字的由来?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Ansible-能做什么？"><span class="nav-number">3.</span> <span class="nav-text">三、Ansible 能做什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、Ansible-的优点"><span class="nav-number">4.</span> <span class="nav-text">四、Ansible 的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、Ansible-包含哪些组件？"><span class="nav-number">5.</span> <span class="nav-text">五、Ansible 包含哪些组件？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、Ansible-如何运作？"><span class="nav-number">6.</span> <span class="nav-text">六、Ansible 如何运作？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程图"><span class="nav-number">6.1.</span> <span class="nav-text">流程图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、Ansible-代码仓库及文档"><span class="nav-number">7.</span> <span class="nav-text">七、Ansible 代码仓库及文档</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、什么是Ansible"><span class="nav-number">1.</span> <span class="nav-text">一、什么是Ansible?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Ansible-名字的由来"><span class="nav-number">2.</span> <span class="nav-text">二、Ansible 名字的由来?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Ansible-能做什么？"><span class="nav-number">3.</span> <span class="nav-text">三、Ansible 能做什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、Ansible-的优点"><span class="nav-number">4.</span> <span class="nav-text">四、Ansible 的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、Ansible-包含哪些组件？"><span class="nav-number">5.</span> <span class="nav-text">五、Ansible 包含哪些组件？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、Modules-模块"><span class="nav-number">5.1.</span> <span class="nav-text">1、Modules(模块)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、Inventory（管理对象的清单）"><span class="nav-number">5.2.</span> <span class="nav-text">2、Inventory（管理对象的清单）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、Playbook（任务编排）"><span class="nav-number">5.3.</span> <span class="nav-text">3、Playbook（任务编排）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、Roles-编排Playbook"><span class="nav-number">5.4.</span> <span class="nav-text">4、Roles(编排Playbook)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、Plugins（插件）"><span class="nav-number">5.5.</span> <span class="nav-text">5、Plugins（插件）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、Ansible-如何运作？"><span class="nav-number">6.</span> <span class="nav-text">六、Ansible 如何运作？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程图"><span class="nav-number">6.1.</span> <span class="nav-text">流程图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、Ansible-代码仓库及文档"><span class="nav-number">7.</span> <span class="nav-text">七、Ansible 代码仓库及文档</span></a></li></ol></div>
             
 
           </div>
