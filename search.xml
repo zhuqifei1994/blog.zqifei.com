@@ -188,6 +188,114 @@
       </tags>
   </entry>
   <entry>
+    <title>FlowCharting监控大盘的实现原理&amp;实践</title>
+    <url>/FlowCharting%E7%9B%91%E6%8E%A7%E5%A4%A7%E7%9B%98%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86-%E5%AE%9E%E8%B7%B5.html</url>
+    <content><![CDATA[<blockquote>
+<p>本文已发表在「高可用架构」公众号。全文链接：<a href="https://mp.weixin.qq.com/s/zd2K4I27KFvCnw788TIZ0A" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/zd2K4I27KFvCnw788TIZ0A</a></p>
+</blockquote>
+<h2 id="监控实现原理"><a href="#监控实现原理" class="headerlink" title="监控实现原理"></a>监控实现原理</h2><p>在美图秀秀业务监控中，我们借助了 Grafana 中 「Flowcharting」 的插件来完善了我们监控数据的汇总。这个插件可以为我们绘制的流程图中各个元素添加实时的监控项，不仅可以快速帮助我们查看服务整体的状态、理解业务的流量走向，同时也可以快速的帮助我们定位故障点。</p>
+<p>先贴一下大盘实际效果图<br><img src="https://mtsre.obs.cn-north-4.myhuaweicloud.com/public/images/20200921160068831227500.png" alt="20200921160068831227500.png"></p>
+<h2 id="监控大盘实践"><a href="#监控大盘实践" class="headerlink" title="监控大盘实践"></a>监控大盘实践</h2><h3 id="第一步：绘制流程图"><a href="#第一步：绘制流程图" class="headerlink" title="第一步：绘制流程图"></a>第一步：绘制流程图</h3><p>首先，我们借助了 <code>draw.io</code> 来绘制我们的业务架构图（如图1）。</p>
+<center>    <img style="border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="https://mtsre.obs.cn-north-4.myhuaweicloud.com/public/images/20200921160068570449850.png">    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">图1-业务架构图</div> </center>
+
+<p>流程图绘制工具可采用以下两种方式：</p>
+<ul>
+<li>Web在线绘制：<a href="https://app.diagrams.net/" target="_blank" rel="noopener">draw.io</a></li>
+<li>本地客户端绘制：<a href="https://github.com/jgraph/drawio-desktop/releases/tag/v13.7.3" target="_blank" rel="noopener">客户端下载地址</a></li>
+</ul>
+<p>业务架构图绘制完毕后，我们通过点击【其他】-【编辑绘图】可以看到图形的代码。</p>
+<p><img src="https://mtsre.obs.cn-north-4.myhuaweicloud.com/public/images/20200921160066889115661.png" alt="20200921160066889115661.png"></p>
+<h3 id="第二步：将流程图导入看板"><a href="#第二步：将流程图导入看板" class="headerlink" title="第二步：将流程图导入看板"></a>第二步：将流程图导入看板</h3><p>我们先将 draw.io 中的流程图代码粘贴在 <code>Source Centent</code> 中，粘贴完毕后，我们就可以从 Grafana 看板中看到绘制好的图形了。</p>
+<p><img src="https://mtsre.obs.cn-north-4.myhuaweicloud.com/public/images/2020091816004154803980.png" alt="2020091816004154803980.png"></p>
+<ul>
+<li><code>Edit Draw</code>：在线编辑当前图形。</li>
+<li><code>Prettify</code>：格式化图形代码。</li>
+<li><code>Minify</code>：合并图形代码。</li>
+<li><code>Compress/Encode</code>：加密图形代码。</li>
+<li><code>Extract/Decode</code>：解码图形代码。</li>
+</ul>
+<p>生成好绘制的图形后，我们就可以开始调整看板的基础配置。</p>
+<p><img src="https://mtsre.obs.cn-north-4.myhuaweicloud.com/public/images/20200921160065888674563.png" alt="20200921160065888674563.png"></p>
+<ul>
+<li><code>Bg Color</code>: 可以调整 grafana 看板背景色。 </li>
+<li><code>Enable animation</code>：开启动画效果。</li>
+</ul>
+<h3 id="第三步：添加图形的监控数据源"><a href="#第三步：添加图形的监控数据源" class="headerlink" title="第三步：添加图形的监控数据源"></a>第三步：添加图形的监控数据源</h3><p>我们需要为关键图形添加监控数据源。根据需求可以在报表中添加相应的 Query 语句。</p>
+<blockquote>
+<p>此处各个查询语句的”名称”，会用于下文中关联图形使用。</p>
+</blockquote>
+<p><img src="https://mtsre.obs.cn-north-4.myhuaweicloud.com/public/images/20200921160066986840476.png" alt="20200921160066986840476.png"></p>
+<h3 id="第四步：设置图形展示规则"><a href="#第四步：设置图形展示规则" class="headerlink" title="第四步：设置图形展示规则"></a>第四步：设置图形展示规则</h3><p>在报表中可以通过添加 <code>Rule</code> ，来设置我们图形的展示效果。</p>
+<p><img src="https://mtsre.obs.cn-north-4.myhuaweicloud.com/public/images/20200922160073901977580.png" alt="20200922160073901977580.png"></p>
+<p>如上图所示，<strong>Optitions</strong> 是用来关联上一步中添加的监控数据源。</p>
+<ul>
+<li><code>Rule name</code>: 规则名称。</li>
+<li><code>Apply to metrics</code>：与哪个查询语句关联 (支持正则)。</li>
+<li><code>Aggregation</code>: 为数据源选择一个聚合。</li>
+</ul>
+<p><strong>Type</strong> 是用来设置数据源展示的指定单位和类型。</p>
+<ul>
+<li><code>Type</code>：类型。</li>
+<li><code>Unit</code>：单位。</li>
+<li><code>Decimals</code>：保留几位小数。</li>
+</ul>
+<p><strong>Thresholds</strong> 用来设置图形展示的颜色变化规则。</p>
+<ul>
+<li><code>Invert</code>：倒序排列。</li>
+<li><code>Gradient</code>：使用渐变颜色。</li>
+<li><code>Icon state</code>：图标状态。</li>
+</ul>
+<p><strong>Tooltips</strong> 开启后，将鼠标移动到具体图形上，会自动展示对应监控值一个周期状态，如下图所示。</p>
+<ul>
+<li><code>Label</code>：弹出窗口中展示的标签（默认和查询语句命名的”名称”相同）。</li>
+<li><code>Direction</code>：垂直显示还是水平显示。</li>
+<li><code>Color with state</code>：弹出的图形颜色是否和服务状态颜色保持一致。</li>
+</ul>
+<p><img src="https://mtsre.obs.cn-north-4.myhuaweicloud.com/public/images/20200921160068703034966.png" alt="20200921160068703034966.png"></p>
+<p><strong>Graph Tooltips</strong> 用来设置弹出图形展示的效果。</p>
+<ul>
+<li><code>Graph type</code>：使用线性或者柱状图。</li>
+<li><code>Graph Size</code>：弹出的图形大小。</li>
+<li><code>Scale type</code>：颜色填充部分选择。</li>
+</ul>
+<h3 id="第五步：关联具体的图形"><a href="#第五步：关联具体的图形" class="headerlink" title="第五步：关联具体的图形"></a>第五步：关联具体的图形</h3><p>我们将具体的图形关联到配置好的 <code>Rule</code> 中，这样就可以在 Grafana 看板中看到具体图形的状态颜色了。</p>
+<p><img src="https://mtsre.obs.cn-north-4.myhuaweicloud.com/public/images/20200921160067935715893.png" alt="20200921160067935715893.png"></p>
+<p><strong>Color/Tooltip Mappings</strong>  颜色映射，图表颜色填充/边框填充等。</p>
+<ul>
+<li><p><code>Identify by</code>：选择一种图形的关联类型，有 id 和 Label 两种。</p>
+<p><img src="https://mtsre.obs.cn-north-4.myhuaweicloud.com/public/images/20200921160067914788817.png" alt="20200921160067914788817.png"></p>
+<ul>
+<li><code>id</code>：即每个图形的 id。例如流程图代码中的 <code>UD0VAbfAxGPwaQMbtyaW-13</code></li>
+<li><code>Label</code>：即每个图形的”标题”。例如流程图代码中的 value 值 <code>MTXX</code></li>
+</ul>
+</li>
+<li><p><code>Regular exression</code>：是否使用正则。如果下方 What 中的值未使用正则，请关闭这个开关以提高性能。</p>
+</li>
+<li><p><code>Buttons</code>：选项的添加和删除。</p>
+</li>
+<li><p><code>What</code>：与哪个图形关联，添加图形关联的方式有两种：</p>
+<ul>
+<li>手动填写”图形id”或”图形标题”。</li>
+<li>先点击 Buttons 中的链接标志，再点击图形，会自动读取 Pannel 中的”图形id”或”标题”。</li>
+</ul>
+</li>
+<li><p><code>When</code>：颜色填充触发条件。</p>
+</li>
+<li><p><code>How</code>：填充类型。</p>
+</li>
+</ul>
+<p><strong>Label/Text Mappings</strong>: 数值映射， 图表与查询结果的数值填充。</p>
+<ul>
+<li><code>When</code>：数值显示条件。</li>
+<li><code>How</code>：数值显示位置。</li>
+</ul>
+<p><strong>Link Mappings</strong>: 链接映射，点击图形可跳转至指定 URL。</p>
+<p><strong>Event/Animation Mappings</strong>: 事件映射。</p>
+<h3 id="第六步：完善流程图中其他图形"><a href="#第六步：完善流程图中其他图形" class="headerlink" title="第六步：完善流程图中其他图形"></a>第六步：完善流程图中其他图形</h3><p>最后，为所有需要监控的图形创建对应的 Rule ，整个业务流程监控大盘就制作完毕了。</p>
+<p><img src="https://mtsre.obs.cn-north-4.myhuaweicloud.com/public/images/20200922160076218971844.png" alt="20200922160076218971844.png"></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Ansible基础篇 - Ansible介绍</title>
     <url>/Ansible%E5%9F%BA%E7%A1%80%E7%AF%87%20-%20Ansible%E4%BB%8B%E7%BB%8D.html</url>
     <content><![CDATA[<h2 id="一、什么是Ansible"><a href="#一、什么是Ansible" class="headerlink" title="一、什么是Ansible?"></a>一、什么是Ansible?</h2><p>1、基于Python开发的一个自动化运维工具。</p>
@@ -357,6 +465,33 @@
       </tags>
   </entry>
   <entry>
+    <title>Docker安装文档</title>
+    <url>/docker%E5%AE%89%E8%A3%85.html</url>
+    <content><![CDATA[<h2 id="有网环境安装"><a href="#有网环境安装" class="headerlink" title="有网环境安装"></a>有网环境安装</h2><h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>Docker 运行环境依赖于服务器的内核，它的内核版本要求在 <strong>2.6.32-431</strong> 以上才可以正常运行。</li>
+<li>Docker 官方推荐使用的内核为 <strong>3.0</strong> 以上，在该内核上运行 Docker 可以使服务更加稳定，所以在安装 Docker 之前请将服务器内核升级到 <strong>3.0</strong> 版本以上。     </li>
+</ul>
+<h3 id="安装命令"><a href="#安装命令" class="headerlink" title="安装命令"></a>安装命令</h3><h4 id="使用自动脚本安装Docker-默认安装最新版本docker"><a href="#使用自动脚本安装Docker-默认安装最新版本docker" class="headerlink" title="使用自动脚本安装Docker(默认安装最新版本docker)"></a>使用自动脚本安装Docker(默认安装最新版本docker)</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># docker官方源</span></span><br><span class="line">$ curl -sSL https://get.docker.com/ | sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># daocloud镜像源</span></span><br><span class="line">$ curl -sSL https://get.daocloud.io/docker | sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># aliyun镜像源</span></span><br><span class="line">$ curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh - </span><br><span class="line"></span><br><span class="line"><span class="comment"># 从Rancher网站安装指定版本的docker</span></span><br><span class="line">$ curl https://releases.rancher.com/install-docker/1.12.sh | sh</span><br></pre></td></tr></table></figure>
+<h4 id="安装指定版本的Docker"><a href="#安装指定版本的Docker" class="headerlink" title="安装指定版本的Docker"></a>安装指定版本的Docker</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ apt-get update</span><br><span class="line">$ apt-cache madison docker-engine</span><br><span class="line"></span><br><span class="line">docker-engine | 1.13.0-0~ubuntu-xenial | https://apt.dockerproject.org/repo ubuntu-xenial/main amd64 Packages</span><br><span class="line">docker-engine | 1.12.6-0~ubuntu-xenial | https://apt.dockerproject.org/repo ubuntu-xenial/main amd64 Packages</span><br><span class="line">docker-engine | 1.12.5-0~ubuntu-xenial | https://apt.dockerproject.org/repo ubuntu-xenial/main amd64 Packages</span><br><span class="line">docker-engine | 1.12.4-0~ubuntu-xenial | https://apt.dockerproject.org/repo ubuntu-xenial/main amd64 Packages</span><br></pre></td></tr></table></figure>
+<p>然后根据版本号进行安装<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get -y install docker-engine=&lt;VERSION_STRING&gt;</span><br><span class="line"><span class="comment"># 例如安装 1.12.5 ubuntu-trusty 版本</span></span><br><span class="line">$ apt-get --force-yes install docker-engine=1.12.5-0~ubuntu-trusty</span><br></pre></td></tr></table></figure></p>
+<p>也可以使用rancher脚本安装，<a href="http://rancher.com/docs/rancher/v1.5/en/hosts/#supported-docker-versions" target="_blank" rel="noopener">参考链接</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl https://releases.rancher.com/install-docker/&lt;VERSION_STRING&gt;.sh | sh</span><br><span class="line"><span class="comment"># 例如安装 17.03.x-ce 版本</span></span><br><span class="line">$ curl https://releases.rancher.com/install-docker/17.03.sh | sh</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置镜像源"><a href="#配置镜像源" class="headerlink" title="配置镜像源"></a>配置镜像源</h3><h4 id="USTC"><a href="#USTC" class="headerlink" title="USTC"></a>USTC</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo <span class="built_in">echo</span> <span class="string">"DOCKER_OPTS=\"--registry-mirror=https://docker.mirrors.ustc.edu.cn\""</span>&gt;&gt; /etc/default/docker</span><br><span class="line"></span><br><span class="line">$ sudo service docker restart</span><br></pre></td></tr></table></figure>
+<h4 id="Daocloud"><a href="#Daocloud" class="headerlink" title="Daocloud"></a>Daocloud</h4><p>DaoCloud也提供了docker加速器，但是跟ustc不同，需要用户注册后才能使用，并且每月限制流量10GB。详情请查看  <a href="https://www.daocloud.io/mirror#accelerator-doc" target="_blank" rel="noopener">配置Daocloud加速器</a>。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://&#123;your_id&#125;.m.daocloud.io</span><br><span class="line">  </span><br><span class="line">$ service docker restart</span><br></pre></td></tr></table></figure></p>
+<h4 id="网易163"><a href="#网易163" class="headerlink" title="网易163"></a>网易163</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"DOCKER_OPTS=\"--registry-mirror=http://hub-mirror.c.163.com\""</span>&gt;&gt; /etc/default/docker</span><br><span class="line">  </span><br><span class="line">$ service docker restart</span><br></pre></td></tr></table></figure>
+<h3 id="卸载Docker"><a href="#卸载Docker" class="headerlink" title="卸载Docker"></a>卸载Docker</h3><p>卸载Docker后，/var/lib/docker/目录下会保留原Docker的镜像，网络，存储卷等文件。如果需要全新安装Docker，需要删除/var/lib/docker/目录。</p>
+<h4 id="Ubuntu-Debian"><a href="#Ubuntu-Debian" class="headerlink" title="Ubuntu/Debian"></a>Ubuntu/Debian</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ rm -rf /var/lib/docker/</span><br></pre></td></tr></table></figure>
+<h4 id="RHEL-CentOS"><a href="#RHEL-CentOS" class="headerlink" title="RHEL/CentOS"></a>RHEL/CentOS</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo yum remove docker \</span><br><span class="line">docker-common \</span><br><span class="line">container-selinux \</span><br><span class="line">docker-selinux \</span><br><span class="line">docker-engine</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ rm -rf /var/lib/docker/</span><br></pre></td></tr></table></figure>
+<h4 id="Fedora"><a href="#Fedora" class="headerlink" title="Fedora"></a>Fedora</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo dnf remove docker \</span><br><span class="line">docker-common \</span><br><span class="line">container-selinux \</span><br><span class="line">docker-selinux \</span><br><span class="line">docker-engine</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ rm -rf /var/lib/docker/</span><br></pre></td></tr></table></figure>
+<h2 id="无网环境安装"><a href="#无网环境安装" class="headerlink" title="无网环境安装"></a>无网环境安装</h2><p>我在 github 上对小于 centos6.8 的版本编写了一套 Docker 安装脚本，请点击查看 <a href="https://github.com/zhuqifei1994/docker-install/blob/master/%E6%97%A0%E7%BD%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md" target="_blank" rel="noopener">安装文档</a>。</p>
+]]></content>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MegaCli常用命令</title>
     <url>/MegaCli%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html</url>
     <content><![CDATA[<h2 id="MegaCli工具介绍"><a href="#MegaCli工具介绍" class="headerlink" title="MegaCli工具介绍"></a>MegaCli工具介绍</h2><ul>
@@ -387,33 +522,6 @@
 ]]></content>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Docker安装文档</title>
-    <url>/docker%E5%AE%89%E8%A3%85.html</url>
-    <content><![CDATA[<h2 id="有网环境安装"><a href="#有网环境安装" class="headerlink" title="有网环境安装"></a>有网环境安装</h2><h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
-<li>Docker 运行环境依赖于服务器的内核，它的内核版本要求在 <strong>2.6.32-431</strong> 以上才可以正常运行。</li>
-<li>Docker 官方推荐使用的内核为 <strong>3.0</strong> 以上，在该内核上运行 Docker 可以使服务更加稳定，所以在安装 Docker 之前请将服务器内核升级到 <strong>3.0</strong> 版本以上。     </li>
-</ul>
-<h3 id="安装命令"><a href="#安装命令" class="headerlink" title="安装命令"></a>安装命令</h3><h4 id="使用自动脚本安装Docker-默认安装最新版本docker"><a href="#使用自动脚本安装Docker-默认安装最新版本docker" class="headerlink" title="使用自动脚本安装Docker(默认安装最新版本docker)"></a>使用自动脚本安装Docker(默认安装最新版本docker)</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># docker官方源</span></span><br><span class="line">$ curl -sSL https://get.docker.com/ | sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># daocloud镜像源</span></span><br><span class="line">$ curl -sSL https://get.daocloud.io/docker | sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># aliyun镜像源</span></span><br><span class="line">$ curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh - </span><br><span class="line"></span><br><span class="line"><span class="comment"># 从Rancher网站安装指定版本的docker</span></span><br><span class="line">$ curl https://releases.rancher.com/install-docker/1.12.sh | sh</span><br></pre></td></tr></table></figure>
-<h4 id="安装指定版本的Docker"><a href="#安装指定版本的Docker" class="headerlink" title="安装指定版本的Docker"></a>安装指定版本的Docker</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ apt-get update</span><br><span class="line">$ apt-cache madison docker-engine</span><br><span class="line"></span><br><span class="line">docker-engine | 1.13.0-0~ubuntu-xenial | https://apt.dockerproject.org/repo ubuntu-xenial/main amd64 Packages</span><br><span class="line">docker-engine | 1.12.6-0~ubuntu-xenial | https://apt.dockerproject.org/repo ubuntu-xenial/main amd64 Packages</span><br><span class="line">docker-engine | 1.12.5-0~ubuntu-xenial | https://apt.dockerproject.org/repo ubuntu-xenial/main amd64 Packages</span><br><span class="line">docker-engine | 1.12.4-0~ubuntu-xenial | https://apt.dockerproject.org/repo ubuntu-xenial/main amd64 Packages</span><br></pre></td></tr></table></figure>
-<p>然后根据版本号进行安装<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get -y install docker-engine=&lt;VERSION_STRING&gt;</span><br><span class="line"><span class="comment"># 例如安装 1.12.5 ubuntu-trusty 版本</span></span><br><span class="line">$ apt-get --force-yes install docker-engine=1.12.5-0~ubuntu-trusty</span><br></pre></td></tr></table></figure></p>
-<p>也可以使用rancher脚本安装，<a href="http://rancher.com/docs/rancher/v1.5/en/hosts/#supported-docker-versions" target="_blank" rel="noopener">参考链接</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl https://releases.rancher.com/install-docker/&lt;VERSION_STRING&gt;.sh | sh</span><br><span class="line"><span class="comment"># 例如安装 17.03.x-ce 版本</span></span><br><span class="line">$ curl https://releases.rancher.com/install-docker/17.03.sh | sh</span><br></pre></td></tr></table></figure></p>
-<h3 id="配置镜像源"><a href="#配置镜像源" class="headerlink" title="配置镜像源"></a>配置镜像源</h3><h4 id="USTC"><a href="#USTC" class="headerlink" title="USTC"></a>USTC</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo <span class="built_in">echo</span> <span class="string">"DOCKER_OPTS=\"--registry-mirror=https://docker.mirrors.ustc.edu.cn\""</span>&gt;&gt; /etc/default/docker</span><br><span class="line"></span><br><span class="line">$ sudo service docker restart</span><br></pre></td></tr></table></figure>
-<h4 id="Daocloud"><a href="#Daocloud" class="headerlink" title="Daocloud"></a>Daocloud</h4><p>DaoCloud也提供了docker加速器，但是跟ustc不同，需要用户注册后才能使用，并且每月限制流量10GB。详情请查看  <a href="https://www.daocloud.io/mirror#accelerator-doc" target="_blank" rel="noopener">配置Daocloud加速器</a>。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://&#123;your_id&#125;.m.daocloud.io</span><br><span class="line">  </span><br><span class="line">$ service docker restart</span><br></pre></td></tr></table></figure></p>
-<h4 id="网易163"><a href="#网易163" class="headerlink" title="网易163"></a>网易163</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"DOCKER_OPTS=\"--registry-mirror=http://hub-mirror.c.163.com\""</span>&gt;&gt; /etc/default/docker</span><br><span class="line">  </span><br><span class="line">$ service docker restart</span><br></pre></td></tr></table></figure>
-<h3 id="卸载Docker"><a href="#卸载Docker" class="headerlink" title="卸载Docker"></a>卸载Docker</h3><p>卸载Docker后，/var/lib/docker/目录下会保留原Docker的镜像，网络，存储卷等文件。如果需要全新安装Docker，需要删除/var/lib/docker/目录。</p>
-<h4 id="Ubuntu-Debian"><a href="#Ubuntu-Debian" class="headerlink" title="Ubuntu/Debian"></a>Ubuntu/Debian</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ rm -rf /var/lib/docker/</span><br></pre></td></tr></table></figure>
-<h4 id="RHEL-CentOS"><a href="#RHEL-CentOS" class="headerlink" title="RHEL/CentOS"></a>RHEL/CentOS</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo yum remove docker \</span><br><span class="line">docker-common \</span><br><span class="line">container-selinux \</span><br><span class="line">docker-selinux \</span><br><span class="line">docker-engine</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ rm -rf /var/lib/docker/</span><br></pre></td></tr></table></figure>
-<h4 id="Fedora"><a href="#Fedora" class="headerlink" title="Fedora"></a>Fedora</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo dnf remove docker \</span><br><span class="line">docker-common \</span><br><span class="line">container-selinux \</span><br><span class="line">docker-selinux \</span><br><span class="line">docker-engine</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ rm -rf /var/lib/docker/</span><br></pre></td></tr></table></figure>
-<h2 id="无网环境安装"><a href="#无网环境安装" class="headerlink" title="无网环境安装"></a>无网环境安装</h2><p>我在 github 上对小于 centos6.8 的版本编写了一套 Docker 安装脚本，请点击查看 <a href="https://github.com/zhuqifei1994/docker-install/blob/master/%E6%97%A0%E7%BD%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md" target="_blank" rel="noopener">安装文档</a>。</p>
-]]></content>
-      <tags>
-        <tag>docker</tag>
       </tags>
   </entry>
   <entry>

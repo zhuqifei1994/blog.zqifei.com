@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.zqifei.com/"/>
-  <updated>2020-10-16T08:29:04.391Z</updated>
+  <updated>2021-06-17T06:36:31.508Z</updated>
   <id>https://blog.zqifei.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>FlowCharting监控大盘的实现原理&amp;实践</title>
+    <link href="https://blog.zqifei.com/FlowCharting%E7%9B%91%E6%8E%A7%E5%A4%A7%E7%9B%98%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86-%E5%AE%9E%E8%B7%B5.html"/>
+    <id>https://blog.zqifei.com/FlowCharting监控大盘的实现原理-实践.html</id>
+    <published>2021-06-17T06:31:09.000Z</published>
+    <updated>2021-06-17T06:36:31.508Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;本文已发表在「高可用架构」公众号。全文链接：&lt;a href=&quot;https://mp.weixin.qq.com/s/zd2K4I27KFvCnw788TIZ0A&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://mp.
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Ansible基础篇 - Ansible Roles用法</title>
@@ -86,7 +106,7 @@
     <link href="https://blog.zqifei.com/Ansible%E5%9F%BA%E7%A1%80%E7%AF%87%20-%20Ansible%E4%BB%8B%E7%BB%8D.html"/>
     <id>https://blog.zqifei.com/Ansible基础篇 - Ansible介绍.html</id>
     <published>2020-08-03T02:41:11.000Z</published>
-    <updated>2020-10-19T06:10:33.042Z</updated>
+    <updated>2020-10-19T09:05:35.946Z</updated>
     
     <summary type="html">
     
