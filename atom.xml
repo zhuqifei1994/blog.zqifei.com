@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.zqifei.com/"/>
-  <updated>2021-06-18T01:53:20.344Z</updated>
+  <updated>2021-10-11T06:16:57.420Z</updated>
   <id>https://blog.zqifei.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《My Philosophy on Alerting》- 监控报警的哲学</title>
+    <link href="https://blog.zqifei.com/My-Philosophy-on-Alerting.html"/>
+    <id>https://blog.zqifei.com/My-Philosophy-on-Alerting.html</id>
+    <published>2021-10-11T06:06:56.000Z</published>
+    <updated>2021-10-11T06:16:57.420Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;摘自：&lt;a href=&quot;https://zhuanlan.zhihu.com/p/266870885?utm_source=wechat_session&amp;amp;utm_medium=social&amp;amp;s_r=0&amp;amp;wechatShare=1&quot; target=&quot;_
+      
+    
+    </summary>
+    
+    
+      <category term="Alerting" scheme="https://blog.zqifei.com/tags/Alerting/"/>
+    
+  </entry>
   
   <entry>
     <title>FlowCharting监控大盘的实现原理&amp;实践</title>
